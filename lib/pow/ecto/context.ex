@@ -101,7 +101,7 @@ defmodule Pow.Ecto.Context do
 
   defp do_authenticate(_user_id_field, nil, _password, _config), do: nil
   defp do_authenticate(user_id_field, user_id_value, password, config) do
-    [{user_id_field, user_id_value}]
+    [{user_id_field, user_id_value}, {:provider, "self"}]
     |> Operations.get_by(config)
     |> verify_password(password, config)
   end
