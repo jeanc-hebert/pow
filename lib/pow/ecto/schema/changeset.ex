@@ -246,6 +246,7 @@ defmodule Pow.Ecto.Schema.Changeset do
     password_max_length = Config.get(config, :password_max_length, @password_max_length)
 
     Changeset.validate_length(changeset, :password, min: password_min_length, max: password_max_length)
+    |> Changeset.validate_format(:password, ~r/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[-+_!@#$%^&*.,?])$/)
   end
 
   defp maybe_put_password_hash(%Changeset{valid?: true, changes: %{password: password}} = changeset, config) do
